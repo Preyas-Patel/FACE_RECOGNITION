@@ -12,21 +12,25 @@ import datetime
 import time
 
 window = Tk()
-window.geometry('600x600')
+window.geometry('1000x800')
+window.configure(bg='grey15')
 window.resizable(width=False, height=False)
-window.title("My Attendance Portal")
-window.configure(background='#D0D3D4')
+window.title("Tech Giant Attendance System")
+#window.configure(background='#D0D3D4')
 image = PIL.Image.open("logo.png")
 photo = PIL.ImageTk.PhotoImage(image)
-lab = Label(image=photo, bg='#D0D3D4')
+lab = Label(image=photo, bg='grey15')
 lab.pack()
 
 fn = StringVar()
 entry_name = Entry(window, textvar=fn)
-entry_name.place(x=150, y=257)
+entry_name.place(x=265, y=265)
 ln = StringVar()
 entry_id = Entry(window, textvar=ln)
-entry_id.place(x=455, y=257)
+entry_id.place(x=265, y=320)
+em = StringVar()
+enter_email = Entry(window, textvar=em)
+enter_email.place(x=265, y=378)
 
 
 def close():
@@ -39,6 +43,7 @@ def close():
 def detect():
     Id = ln.get()
     name = fn.get()
+    email = em.get()
     cascade_face = cv2.CascadeClassifier(r"C:\Users\Prey\PycharmProjects\attedance\haarcascade_frontal.xml")
     cam = cv2.VideoCapture(0)
     img_counter = 0
@@ -74,7 +79,7 @@ def detect():
 
     cam.release()
     cv2.destroyAllWindows()
-    row = [Id, name]
+    row = [Id, name, email]
     with open(r"C:\Users\Prey\PycharmProjects\attedance\StudentDetails.csv", 'a+') as csvFile:
         writer = csv.writer(csvFile)
         writer.writerow(row)
@@ -161,31 +166,34 @@ def track_user():
             cv2.destroyAllWindows()
 
 
+label1 = Label(window, text="Create & Develope By Tech Giant", fg='DeepSkyBlue2', bg='grey15',
+               font=("roboto", 20, 'bold')).place(x=280, y=150)
+label2 = Label(window, text="New User", fg='#717D7E', bg='grey15', font=("roboto", 25, "bold")).place(x=20, y=200)
+label3 = Label(window, text="Enter Name :", fg='black', bg='grey15', font=("roboto", 18)).place(x=20, y=260)
+label4 = Label(window, text="Enter Roll Number :", fg='black', bg='grey15', font=("roboto", 18)).place(x=20, y=315)
+label5 = Label(window, text="Enter Email address:", fg='black', bg='grey15', font=("roboto", 18)).place(x=20, y=370)
 
-label2 = Label(window, text="New User", fg='#717D7E', bg='#D0D3D4', font=("roboto", 20, "bold")).place(x=20, y=200)
-label3 = Label(window, text="Enter Name :", fg='black', bg='#D0D3D4', font=("roboto", 15)).place(x=20, y=250)
-label4 = Label(window, text="Enter Roll Number :", fg='black', bg='#D0D3D4', font=("roboto", 15)).place(x=275, y=252)
-label5 = Label(window, text="Note : To exit the frame window press 'q'", fg='red', bg='#D0D3D4',
-               font=("roboto", 15)).place(x=20, y=100)
+
+heading = Label(window, text="Create & Developed By tecch Giant", fg="grey15", )
 # status=Label(window,textvariable=v,fg='red',bg='#D0D3D4',font=("roboto",15,"italic")).place(x=20,y=150)
-label6 = Label(window, text="Already a User ?", fg='#717D7E', bg='#D0D3D4', font=("roboto", 20, "bold")).place(x=20,
-                                                                                                               y=350)
-label7 = Label(window, text="Delete a users information", fg='#717D7E', bg='#D0D3D4',
-               font=("roboto", 20, "bold")).place(x=20, y=450)
-label8 = Label(window, text="Enter Id :", fg='black', bg='#D0D3D4', font=("roboto", 15)).place(x=20, y=500)
+label6 = Label(window, text="Already a User?", fg='#717D7E', bg='grey15', font=("roboto", 25, "bold")).place(x=20,
+                                                                                                               y=600)
+# label7 = Label(window, text="Delete a users information", fg='#717D7E', bg='grey15',
+#               font=("roboto", 20, "bold")).place(x=20, y=450)
+# label8 = Label(window, text="Enter Id :", fg='black', bg='grey15', font=("roboto", 15)).place(x=20, y=500)
 
-button1 = Button(window, text="Exit", width=5, fg='#fff', bg='red', relief=RAISED, font=("roboto", 15, "bold"),
+button1 = Button(window, text="Exit", width=5, fg='#fff', bg='Red', relief=RAISED, font=("roboto", 15, "bold"),
                  command=exit)
-button1.place(x=500, y=550)
-button2 = Button(window, text="Submit", width=5, fg='#fff', bg='#27AE60', relief=RAISED, font=("roboto", 15, "bold"),
+button1.place(x=870, y=740)
+button2 = Button(window, text="Submit", width=5, fg='#fff', bg='dark green', relief=RAISED, font=("roboto", 15, "bold"),
                  command=detect)
-button2.place(x=20, y=300)
-button3 = Button(window, text="Train Images", fg='#fff', bg='#5DADE2', relief=RAISED, font=("roboto", 15, "bold"),
+button2.place(x=20, y=450)
+button3 = Button(window, text="Train Images", fg='#fff', bg='dark green', relief=RAISED, font=("roboto", 15, "bold"),
                  command=train_image)
-button3.place(x=100, y=300)
-button4 = Button(window, text="Track User", fg='#fff', bg='#E67E22', relief=RAISED, font=("roboto", 15, "bold"),
+button3.place(x=20, y=530)
+button4 = Button(window, text="Track User", fg='#fff', bg='dark green', relief=RAISED, font=("roboto", 15, "bold"),
                  command=track_user)
-button4.place(x=20, y=400)
-button6 = Button(window, text="Delete User", fg='#fff', bg='#8E44AD', relief=RAISED, font=("roboto", 15, "bold"))
-button6.place(x=20, y=550)
+button4.place(x=20, y=680)
+#button6 = Button(window, text="Delete User", fg='#fff', bg='#8E44AD', relief=RAISED, font=("roboto", 15, "bold"))
+#button6.place(x=20, y=550)
 window.mainloop()
